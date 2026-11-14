@@ -9,12 +9,12 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class ProduitDAO {
-    // Thread-safe pour gérer l'accès concurrent dans Tomcat
+    
     private final Map<Long, Produit> produits = new ConcurrentHashMap<>();
     private final AtomicLong sequence = new AtomicLong(0);
 
     public ProduitDAO() {
-        // Jeux de données de test au démarrage
+        
         save(new Produit(null, "Laptop", "Dell XPS 13", new BigDecimal("9500.00"), 5));
         save(new Produit(null, "Souris", "Logitech MX Master", new BigDecimal("650.00"), 20));
     }

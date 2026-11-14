@@ -1,4 +1,3 @@
-ma\app\listener\AppInitListener.class
 ma\app\web\DashboardServlet.class
 ma\app\web\ProduitServlet.class
 ma\app\web\LoginServlet.class

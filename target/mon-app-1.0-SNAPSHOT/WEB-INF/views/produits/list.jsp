@@ -10,8 +10,7 @@
 <body>
     <h1>Catalogue de produits</h1>
 
-    <%-- Affichage et suppression du message flash --%>
-    <c:if test="${not empty sessionScope.flash}">
+<c:if test="${not empty sessionScope.flash}">
         <p style="color: green;"><c:out value="${sessionScope.flash}"/></p>
         <c:remove var="flash" scope="session"/>
     </c:if>

@@ -20,7 +20,7 @@ public class ProduitServlet extends HttpServlet {
 
     @Override
     public void init() {
-        // Récupération du DAO partagé depuis le ServletContext
+        
         this.dao = (ProduitDAO) getServletContext().getAttribute("produitDAO");
     }
 
@@ -30,15 +30,15 @@ public class ProduitServlet extends HttpServlet {
         String action = req.getParameter("action");
 
         if (action == null || action.isEmpty()) {
-            // Afficher la liste des produits
+            
             req.setAttribute("produits", dao.findAll());
             req.getRequestDispatcher("/WEB-INF/views/produits/list.jsp").forward(req, resp);
         } else if ("new".equals(action)) {
-            // Afficher le formulaire vide pour création
+            
             req.setAttribute("produit", new Produit());
             req.getRequestDispatcher("/WEB-INF/views/produits/form.jsp").forward(req, resp);
         } else if ("edit".equals(action)) {
-            // Afficher le formulaire pré-rempli pour édition
+            
             try {
                 Long id = Long.parseLong(req.getParameter("id"));
                 Produit p = dao.findById(id);
@@ -62,8 +62,7 @@ public class ProduitServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         String action = req.getParameter("action");
 
-        // Action de suppression (POST uniquement)
-        if ("delete".equals(action)) {
+if ("delete".equals(action)) {
             try {
                 Long id = Long.parseLong(req.getParameter("id"));
                 dao.delete(id);
@@ -73,8 +72,7 @@ public class ProduitServlet extends HttpServlet {
             return;
         }
 
-        // Action de Création / Modification
-        String idStr = req.getParameter("id");
+String idStr = req.getParameter("id");
         String nom = req.getParameter("nom");
         String description = req.getParameter("description");
         String prixStr = req.getParameter("prix");
@@ -82,18 +80,15 @@ public class ProduitServlet extends HttpServlet {
 
         Map<String, String> erreurs = new HashMap<>();
 
-        // 1. Validation du nom
-        if (nom == null || nom.trim().length() < 2 || nom.trim().length() > 50) {
+if (nom == null || nom.trim().length() < 2 || nom.trim().length() > 50) {
             erreurs.put("nom", "Le nom doit contenir entre 2 et 50 caractères.");
         }
 
-        // 2. Validation de la description
-        if (description != null && description.length() > 255) {
+if (description != null && description.length() > 255) {
             erreurs.put("description", "La description ne doit pas dépasser 255 caractères.");
         }
 
-        // 3. Validation du prix
-        BigDecimal prix = null;
+BigDecimal prix = null;
         try {
             prix = new BigDecimal(prixStr);
             if (prix.compareTo(BigDecimal.ZERO) <= 0) {
@@ -103,8 +98,7 @@ public class ProduitServlet extends HttpServlet {
             erreurs.put("prix", "Le prix doit être un nombre valide.");
         }
 
-        // 4. Validation du stock
-        int stock = 0;
+int stock = 0;
         if (stockStr != null && !stockStr.trim().isEmpty()) {
             try {
                 stock = Integer.parseInt(stockStr);
@@ -120,12 +114,12 @@ public class ProduitServlet extends HttpServlet {
         Produit p = new Produit(id, nom, description, prix, stock);
 
         if (!erreurs.isEmpty()) {
-            // S'il y a des erreurs -> re-afficher le formulaire avec erreurs et valeurs saisies
+            
             req.setAttribute("erreurs", erreurs);
             req.setAttribute("produit", p);
             req.getRequestDispatcher("/WEB-INF/views/produits/form.jsp").forward(req, resp);
         } else {
-            // Sauvegarde et redirection PRG
+            
             dao.save(p);
             String msg = (id == null) ? "Produit " + nom + " ajouté !" : "Produit " + nom + " modifié !";
             req.getSession().setAttribute("flash", msg);
