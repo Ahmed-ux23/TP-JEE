@@ -15,7 +15,7 @@
     </properties>
 
     <dependencies>
-        <!-- API Jakarta Servlet (Tomcat 10+) -->
+        
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
@@ -23,13 +23,12 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- API JSTL Jakarta -->
-        <dependency>
+<dependency>
             <groupId>jakarta.servlet.jsp.jstl</groupId>
             <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>3.0.0</version>
         </dependency>
-        <!-- Implémentation JSTL Glassfish -->
+        
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
@@ -38,7 +37,7 @@
     </dependencies>
     <build>
         <plugins>
-            <!-- Plugin Maven Tomcat pour exécuter le projet sans installation externe -->
+            
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>common-tomcat-maven-plugin</artifactId>
